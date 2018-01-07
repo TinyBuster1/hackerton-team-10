@@ -78,11 +78,6 @@ class TestTheGame(unittest.TestCase):
         print('testing if the tank died')
         self.assertNotEquals(self.tank1.explode(),self.tank1.alive,'tank is still alive')
 
-    def test_bullet(self):
-        print('testing bullet path')
-        self.assertEquals(self.bullet.x,0,'not equals')
-
-
 
 
 if __name__ == '__main__':
