@@ -41,7 +41,7 @@ class ShootOption:
         self.a = 0.0
         self.b = 0.0
         self.c = 0.0
-        self.speed = 1
+        self.speed = 5
         self.mode = self.LINEAR
 
     def next_mode(self):
@@ -88,7 +88,7 @@ class Tank(object):
         self.active = False
         self.alive = True
         self.shoot_option = ShootOption()
-        self.lives = self.settings['number_of_hits']
+        self.lives = 3
         self.moves_left = 5
         self.radius = 30
 
@@ -313,13 +313,15 @@ class Game(object):
                         current_tank.shoot_option.next_mode()
                     if event.key == pygame.K_s:
                         if shift:
-                            current_tank.shoot_option.speed -= 1
+                            if current_tank.shoot_option.speed > -5:
+                                current_tank.shoot_option.speed -= 5
                             if current_tank.shoot_option.speed == 0:
-                                current_tank.shoot_option.speed = -1
+                                current_tank.shoot_option.speed = -5
                         else:
-                            current_tank.shoot_option.speed += 1
+                            if current_tank.shoot_option.speed < 5:
+                                current_tank.shoot_option.speed += 5
                             if current_tank.shoot_option.speed == 0:
-                                current_tank.shoot_option.speed = 1
+                                current_tank.shoot_option.speed = 5
 
     def draw(self, screen):
         screen.fill((0, 0, 64))
@@ -563,6 +565,7 @@ class HowToScreen(object):
         self.small_font = pygame.font.Font(None, 32)
         self.font_color = (255, 255, 255)
         self.text = """
+SPACE - fire
 M - change shooting mode
 A / Shift + A - change 'a' coefficient
 B / Shift + B - change 'b' coefficient
