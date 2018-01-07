@@ -90,7 +90,7 @@ class Tank(object):
         self.shoot_option = ShootOption()
         self.lives = 3
         self.moves_left = 5
-        self.radius = 30
+        self.radius = 10
 
     def explode(self):
         self.alive = False
