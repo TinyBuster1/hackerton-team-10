@@ -2,7 +2,9 @@ import unittest
 import scorch
 
 
+
 class TestTheGame(unittest.TestCase):
+
     tank = scorch.ShootOption()
 
     def test_eq(self):
@@ -23,7 +25,7 @@ class TestTheGame(unittest.TestCase):
 
     def test_speed(self):
         print('testing paramenter speed')
-        self.assertEqual(self.tank.speed,1,'not equals')
+        self.assertEqual(self.tank.speed,5,'not equals')
 
     def test_update(self):
         print('testing update <else> function')
@@ -33,11 +35,48 @@ class TestTheGame(unittest.TestCase):
         print('testing update <LINEAR> function')
         self.assertEqual(self.tank.mode,self.tank.LINEAR)
 
-    tank1 = scorch.Tank(1,1,scorch.RED)
+    def test_sin(self):
+        print('testing sin function')
+        self.assertEqual(self.tank.SIN,3,'not equals')
+
+    def test_linear(self):
+        print('testing linear function')
+        self.assertEqual(self.tank.LINEAR,0,'not equals')
+
+    def test_quad(self):
+        print('testing quad function')
+        self.assertEqual(self.tank.QUAD,1,'not equals')
+
+    def test_shooting_ground_colide(self):
+        print('testing if the bullet hit the ground')
+        self.assertEqual(self.tank.update(1),1, 'the bullet doesnt colide with the ground')
+
+    def test_log(self):
+        print('testing log function')
+        self.assertEqual(self.tank.LOG,2,'not equals')
+
+    tank1 = scorch.Tank(1,1,scorch.RED,options=None)
+
+
+    def test_health(self):
+        print('testing tanks health')
+        self.assertEqual(self.tank1.lives, 3, 'not equals')
+
+    def test_explode(self):
+        print('testing active field')
+        self.assertEqual(self.tank1.active,False, 'not equals')
 
     def test_tank(self):
         print('testing moves left')
         self.assertGreater(self.tank1.moves_left,0,'no moves left')
+
+    def test_winning_screen(self):
+        print('display the winner screen')
+        self.assertEqual(scorch.get_ground_points([(0,300)],1), 1, 'showing winning screen is failed')
+
+    def test_radius(self):
+        print('testing starting radius')
+        self.assertEqual(self.tank1.radius,10,'radius is not as default')
 
     def test_shooting_path(self):
         print('testing shootng path')
@@ -46,6 +85,11 @@ class TestTheGame(unittest.TestCase):
     def test_tank_dead(self):
         print('testing if the tank died')
         self.assertNotEquals(self.tank1.explode(),self.tank1.alive,'tank is still alive')
+
+    def test_Shooting_enemy_tank(self):
+        print('testing hitting enemy tank')
+        self.assertEqual(scorch.eq(1, 2, 3, 4, 5, 6), 1, 'enemy tank not hit')
+
 
 
 if __name__ == '__main__':
